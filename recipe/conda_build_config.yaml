@@ -29,3 +29,11 @@ pin_run_as_build:
   pyarrow:
     min_pin: x
     max_pin: x
+c_compiler:
+  - gcc
+c_compiler_version:
+  - '12'
+cxx_compiler:
+  - gxx
+cxx_compiler_version:
+  - '12'

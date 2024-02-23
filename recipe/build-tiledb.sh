@@ -3,7 +3,7 @@ set -exo pipefail
 
 cd TileDB/
 
-CURL_LIBS_APPEND=`$PREFIX/bin/curl-config --libs`
+# CURL_LIBS_APPEND=`$PREFIX/bin/curl-config --libs`
 export LDFLAGS="${LDFLAGS} ${CURL_LIBS_APPEND}"
 export LDFLAGS="${LDFLAGS} -Wl,--no-as-needed -lrt"
 export TILEDB_GCS=ON
@@ -19,9 +19,6 @@ cmake ${CMAKE_ARGS} \
   -DTILEDB_HDFS=ON \
   -DSANITIZER=OFF \
   -DCOMPILER_SUPPORTS_AVX2:BOOL=FALSE \
-  -DTILEDB_AZURE=ON \
-  -DTILEDB_GCS=${TILEDB_GCS} \
-  -DTILEDB_S3=ON \
   -DTILEDB_SERIALIZATION=ON \
   -DTILEDB_LOG_OUTPUT_ON_FAILURE=ON \
   ..
