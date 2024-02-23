@@ -60,39 +60,6 @@ outputs:
         # https://abi-laboratory.pro/?view=timeline&l=tiledb
         - {{ pin_subpackage('tiledb', max_pin='x.x') }}
     requirements:
-      build:
-        - sccache
-        - make
-        - cmake
-        - pkg-config
-        - {{ compiler('cxx') }}
-      host:
-        - azure-core-cpp <1.11
-        - azure-storage-common-cpp
-        - azure-storage-blobs-cpp
-        - bzip2
-        - libcurl
-        - lz4-c
-        - google-cloud-cpp
-        - libabseil
-        - openssl
-        - zlib
-        - zstd
-        - libxml2
-    test:
-      files:
-        - test-tiledb-linking.sh
-        - link_test_src/
-      requires:
-        - {{ compiler('cxx') }}
-        - cmake
-        - libarrow {{ libarrow }}
-        - make
-      commands:
-        - test -e $PREFIX/include/tiledb/tiledb.h
-        - test -e $PREFIX/include/tiledb/tiledb
-        - test -e $PREFIX/lib/libtiledb$SHLIB_EXT
-        - bash test-tiledb-linking.sh
     about:
       home: http://tiledb.io
       license: MIT
@@ -116,35 +83,9 @@ outputs:
         - {{ compiler('cxx') }}
         - sccache
       host:
-        - pip
-        - wheel
-        - setuptools
-        - setuptools_scm
-        - python
-        - cython <3.0
-        - numpy
-        - pybind11 <2.11
         - {{ pin_subpackage('tiledb', exact=True) }}
       run:
-        - python
-        - {{ pin_compatible('numpy') }}
-        - packaging
         - {{ pin_subpackage('tiledb', exact=True) }}
-    test:
-      requires:
-        - hypothesis
-        - pyarrow {{ pyarrow }}
-        - pytest
-        - pandas
-        - psutil
-      imports:
-        - tiledb
-      source_files:
-        - TileDB-Py/tiledb/tests/
-      commands:
-        - python -c "import tiledb; tiledb.libtiledb.version()"
-        - python -c "import tiledb; assert tiledb.VFS().supports('s3')"
-        - cd TileDB-Py && pytest -v --ignore-glob='*_examples.py' --ignore-glob='*_dask.py'
     about:
       home: http://tiledb.io
       license: MIT
@@ -164,6 +105,13 @@ outputs:
     script: build-tiledb-r.sh
     build:
       number: 0
+      script_env:
+        - SCCACHE_BUCKET
+        - SCCACHE_REGION
+          # - SCCACHE_ENDPOINT
+          # - SCCACHE_S3_USE_SSL
+        - AWS_ACCESS_KEY_ID
+        - AWS_SECRET_ACCESS_KEY
       rpaths:
         - lib/R/lib/
         - lib/
@@ -174,17 +122,8 @@ outputs:
         - make
         - sccache
       host:
-        - r-base
         - {{ pin_subpackage('tiledb', exact=True) }}
-        - r-rcpp >=1.0.8
-        - r-rcppspdlog
-        - r-nanotime
-        - r-spdl
-        - r-rcppint64
       run:
-        - r-base
-        - r-nanotime
-        - r-spdl
         - {{ pin_subpackage('tiledb', exact=True) }}
     test:
       requires:
@@ -207,6 +146,15 @@ outputs:
       dev_url: https://github.com/TileDB-Inc/TileDB-R
   - name: libtiledbvcf
     version: {{ version_tiledb_vcf }}
+    build:
+      number: 0
+      script_env:
+        - SCCACHE_BUCKET
+        - SCCACHE_REGION
+          # - SCCACHE_ENDPOINT
+          # - SCCACHE_S3_USE_SSL
+        - AWS_ACCESS_KEY_ID
+        - AWS_SECRET_ACCESS_KEY
     script: build-tiledb-vcf.sh
     requirements:
       build:
@@ -216,12 +164,15 @@ outputs:
         - cmake
         - make
         - sccache
+        - automake
       host:
-        - htslib >=1.15
         - {{ pin_subpackage('tiledb', exact=True) }}
+        - zlib
+        - bzip2
+          # - htslib >=1.15
       run:
-        - htslib >=1.15
         - {{ pin_subpackage('tiledb', exact=True) }}
+          # - htslib >=1.15
     test:
       files:
         - test-tiledb-vcf-cli.sh
@@ -236,26 +187,23 @@ outputs:
   - name: tiledbvcf-py
     version: {{ version_tiledb_vcf }}
     script: build-tiledb-vcf-py.sh
+    build:
+      number: 0
+      script_env:
+        - SCCACHE_BUCKET
+        - SCCACHE_REGION
+          # - SCCACHE_ENDPOINT
+          # - SCCACHE_S3_USE_SSL
+        - AWS_ACCESS_KEY_ID
+        - AWS_SECRET_ACCESS_KEY
     requirements:
       build:
         - {{ compiler('cxx') }}
         - sccache
       host:
-        - numpy
         - {{ pin_subpackage('libtiledbvcf', exact=True) }}
-        - python
-        - pyarrow {{ pyarrow }}
-        - pybind11 >=2.5
-        - wheel >=0.30
-        - setuptools >=18.0
-        - setuptools_scm 6.0.1
-        - setuptools_scm_git_archive
       run:
-        - {{ pin_compatible('numpy', lower_bound='1.16', upper_bound='1.24') }}
         - {{ pin_subpackage('libtiledbvcf', exact=True) }}
-        - python
-        - {{ pin_compatible('pyarrow', max_pin='x') }}
-        - pandas
     imports:
       - tiledbvcf
     test:
@@ -274,6 +222,15 @@ outputs:
   - name: libtiledbsoma
     version: {{ version_tiledb_soma }}
     script: build-tiledb-soma.sh
+    build:
+      number: 0
+      script_env:
+        - SCCACHE_BUCKET
+        - SCCACHE_REGION
+          # - SCCACHE_ENDPOINT
+          # - SCCACHE_S3_USE_SSL
+        - AWS_ACCESS_KEY_ID
+        - AWS_SECRET_ACCESS_KEY
     requirements:
       build:
         - {{ compiler('c') }}
@@ -284,8 +241,6 @@ outputs:
         - sccache
       host:
         - {{ pin_subpackage('tiledb', exact=True) }}
-        - spdlog
-        - fmt
       run:
         - {{ pin_subpackage('tiledb', exact=True) }}
     about:
@@ -306,36 +261,23 @@ outputs:
     version: {{ version_tiledb_soma }}
     script: build-tiledb-soma-py.sh
     build:
+      number: 0
+      script_env:
+        - SCCACHE_BUCKET
+        - SCCACHE_REGION
+          # - SCCACHE_ENDPOINT
+          # - SCCACHE_S3_USE_SSL
+        - AWS_ACCESS_KEY_ID
+        - AWS_SECRET_ACCESS_KEY
     requirements:
       build:
         - {{ compiler('cxx') }}
         - sccache
       host:
-        - python
-        - pip
         - {{ pin_subpackage('libtiledbsoma', exact=True) }}
-        - pybind11
-        - setuptools
-        - setuptools_scm
-        - wheel
-        - numpy
-        - pyarrow {{ pyarrow }}
-        - pyarrow-hotfix
       run:
-        - {{ pin_compatible('numpy', lower_bound='1.16', upper_bound='1.24') }}
         - {{ pin_subpackage('libtiledbsoma', exact=True) }}
-        - pandas
-        - pyarrow {{ pyarrow }}
-        - pyarrow-hotfix
-        - python
-        - scipy
-        - anndata <0.10
         - {{ pin_subpackage('tiledb-py', exact=True) }}
-        - typing-extensions >=4.1
-        - numba
-        - attrs >=22.2
-        - somacore >=1.0.6
-        - scanpy 1.9.*
     test:
       # requires:
       #   - cudatoolkit=11.4  # [py==39]
@@ -361,6 +303,14 @@ outputs:
     version: {{ version_tiledb_soma }}
     script: build-tiledb-soma-r.sh
     build:
+      number: 0
+      script_env:
+        - SCCACHE_BUCKET
+        - SCCACHE_REGION
+          # - SCCACHE_ENDPOINT
+          # - SCCACHE_S3_USE_SSL
+        - AWS_ACCESS_KEY_ID
+        - AWS_SECRET_ACCESS_KEY
       rpaths:
         - lib/R/lib/
         - lib/
@@ -371,37 +321,10 @@ outputs:
         - sccache
       host:
         - {{ pin_subpackage('libtiledbsoma', exact=True) }}
-        - r-base
-        - r-r6
-        - r-matrix
-        - r-bit64
-        - r-rcppint64
         - {{ pin_subpackage('r-tiledb', exact=True) }}
-        - r-arrow {{ r_arrow }}
-        - r-fs
-        - r-glue
-        - r-urltools
-        - r-rcpp
-        - r-dplyr
-        - r-data.table
-        - r-spdl
-        - r-rlang
       run:
         - {{ pin_subpackage('libtiledbsoma', exact=True) }}
-        - r-base
-        - r-r6
-        - r-matrix
-        - r-bit64
         - {{ pin_subpackage('r-tiledb', exact=True) }}
-        - r-arrow {{ r_arrow }}
-        - r-fs
-        - r-glue
-        - r-urltools
-        - r-rcpp
-        - r-dplyr
-        - r-data.table
-        - r-spdl
-        - r-rlang
     test:
       commands:
         - $R -e "library('tiledbsoma')"

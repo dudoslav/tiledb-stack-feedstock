@@ -7,9 +7,5 @@ source $RECIPE_DIR/enable-caching.sh
 
 export TILEDB_CONDA_BUILD=1
 
-sccache -z
-
 cd TileDB-Py/
 $PYTHON setup.py install --tiledb="$PREFIX" --single-version-externally-managed --record record.txt
-
-sccache -s

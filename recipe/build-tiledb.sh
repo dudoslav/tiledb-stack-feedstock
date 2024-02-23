@@ -5,12 +5,10 @@ source $RECIPE_DIR/enable-caching.sh
 
 cd TileDB/
 
-CURL_LIBS_APPEND=`$PREFIX/bin/curl-config --libs`
+# CURL_LIBS_APPEND=`$PREFIX/bin/curl-config --libs`
 export LDFLAGS="${LDFLAGS} ${CURL_LIBS_APPEND}"
 export LDFLAGS="${LDFLAGS} -Wl,--no-as-needed -lrt"
 export TILEDB_GCS=ON
-
-sccache -z
 
 mkdir build && cd build
 cmake ${CMAKE_ARGS} \
@@ -23,13 +21,11 @@ cmake ${CMAKE_ARGS} \
   -DTILEDB_HDFS=ON \
   -DSANITIZER=OFF \
   -DCOMPILER_SUPPORTS_AVX2:BOOL=FALSE \
-  -DTILEDB_AZURE=ON \
-  -DTILEDB_GCS=${TILEDB_GCS} \
-  -DTILEDB_S3=ON \
+  -DTILEDB_AZURE=OFF \
+  -DTILEDB_GCS=OFF \
+  -DTILEDB_S3=OFF \
   -DTILEDB_SERIALIZATION=ON \
   -DTILEDB_LOG_OUTPUT_ON_FAILURE=ON \
   ..
-make -j ${CPU_COUNT}
+make VERBOSE=1 -j ${CPU_COUNT}
 make -C tiledb install
-
-sccache -s

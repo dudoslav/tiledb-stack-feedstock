@@ -6,8 +6,6 @@ source $RECIPE_DIR/enable-caching.sh
 
 cd TileDB-VCF/
 
-sccache -z
-
 mkdir libtiledbvcf-build && cd libtiledbvcf-build
 
 cmake \
@@ -17,11 +15,9 @@ cmake \
   -DFORCE_EXTERNAL_HTSLIB=OFF \
   ../libtiledbvcf
 
-make -j ${CPU_COUNT}
+make VERBOSE=1 -j ${CPU_COUNT}
 
 make install-libtiledbvcf
 
 # Cleanup
 cd ../ && rm -r libtiledbvcf-build
-
-sccache -s
