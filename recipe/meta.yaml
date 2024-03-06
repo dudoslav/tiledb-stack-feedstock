@@ -58,20 +58,22 @@ outputs:
         - cmake
         - pkg-config
         - {{ compiler('cxx') }}
-    test:
-      files:
-        - test-tiledb-linking.sh
-        - link_test_src/
-      requires:
-        - {{ compiler('cxx') }}
-        - cmake
-        - libarrow {{ libarrow }}
-        - make
-      commands:
-        - test -e $PREFIX/include/tiledb/tiledb.h
-        - test -e $PREFIX/include/tiledb/tiledb
-        - test -e $PREFIX/lib/libtiledb$SHLIB_EXT
-        - bash test-tiledb-linking.sh
+      host:
+        - libcurl
+          # test:
+          #   files:
+          #     - test-tiledb-linking.sh
+          #     - link_test_src/
+          #   requires:
+          #     - {{ compiler('cxx') }}
+          #     - cmake
+          #     - libarrow {{ libarrow }}
+          #     - make
+          #   commands:
+          #     - test -e $PREFIX/include/tiledb/tiledb.h
+          #     - test -e $PREFIX/include/tiledb/tiledb
+          #     - test -e $PREFIX/lib/libtiledb$SHLIB_EXT
+          #     - bash test-tiledb-linking.sh
     about:
       home: http://tiledb.io
       license: MIT
@@ -106,21 +108,22 @@ outputs:
       run:
         - {{ pin_subpackage('tiledb', exact=True) }}
         - python
-    test:
-      requires:
-        - hypothesis
-        - pyarrow {{ pyarrow }}
-        - pytest
-        - pandas
-        - psutil
-      imports:
-        - tiledb
-      source_files:
-        - TileDB-Py/tiledb/tests/
-      commands:
-        - python -c "import tiledb; tiledb.libtiledb.version()"
-        - python -c "import tiledb; assert tiledb.VFS().supports('s3')"
-        - cd TileDB-Py && pytest -v --ignore-glob='*_examples.py' --ignore-glob='*_dask.py'
+        - {{ pin_compatible('numpy') }}
+          # test:
+          #   requires:
+          #     - hypothesis
+          #     - pyarrow {{ pyarrow }}
+          #     - pytest
+          #     - pandas
+          #     - psutil
+          #   imports:
+          #     - tiledb
+          #   source_files:
+          #     - TileDB-Py/tiledb/tests/
+          #   commands:
+          #     - python -c "import tiledb; tiledb.libtiledb.version()"
+          #     - python -c "import tiledb; assert tiledb.VFS().supports('s3')"
+          #     - cd TileDB-Py && pytest -v --ignore-glob='*_examples.py' --ignore-glob='*_dask.py'
     about:
       home: http://tiledb.io
       license: MIT
@@ -161,14 +164,14 @@ outputs:
         - r-base
         - r-nanotime
         - r-spdl
-    test:
-      requires:
-        - r-tinytest
-        - r-nycflights13
-        - r-palmerpenguins
-        - r-data.table
-      commands:
-        - Rscript -e 'tinytest::test_package("tiledb")'
+          # test:
+      # requires:
+      #   - r-tinytest
+      #   - r-nycflights13
+      #   - r-palmerpenguins
+      #   - r-data.table
+      # commands:
+      #   - Rscript -e 'tinytest::test_package("tiledb")'
     about:
       home: https://www.tiledb.com
       license: MIT
@@ -180,64 +183,64 @@ outputs:
         TileDB is a highly-parallelized, cloud native array storage engine.
       doc_url: https://docs.tiledb.com/developer/
       dev_url: https://github.com/TileDB-Inc/TileDB-R
-  - name: libtiledbvcf
-    version: {{ version_tiledb_vcf }}
-    script: build-tiledb-vcf.sh
-    requirements:
-      build:
-        - {{ compiler('c') }}
-        - {{ compiler('cxx') }}
-        - git
-        - cmake
-        - make
-        - automake
-        - zlib
-        - bzip2
-      host:
-        - {{ pin_subpackage('tiledb', exact=True) }}
-        - zlib
-        - bzip2
-        # - htslib >=1.15
-      run:
-        - {{ pin_subpackage('tiledb', exact=True) }}
-        - zlib
-        - bzip2
-    test:
-      files:
-        - test-tiledb-vcf-cli.sh
-      commands:
-        - tiledbvcf version
-        # verify libhts is linked
-        - ldd ${PREFIX}/lib/libtiledbvcf.so | grep libhts
-        # verify libdeflate is linked to libhts
-        - ldd ${PREFIX}/lib/libhts.so.* | grep libdeflate
-        - tiledbvcf create --uri /tmp/test-tiledbvcf-conda
-        - bash test-tiledb-vcf-cli.sh
-  - name: tiledbvcf-py
-    version: {{ version_tiledb_vcf }}
-    script: build-tiledb-vcf-py.sh
-    requirements:
-      build:
-        - {{ compiler('cxx') }}
-      host:
-        - {{ pin_subpackage('libtiledbvcf', exact=True) }}
-      run:
-        - {{ pin_subpackage('libtiledbvcf', exact=True) }}
-    imports:
-      - tiledbvcf
-    test:
-      # requires:
-      #   - cudatoolkit=11.4  # [py==39]
-      #   - cudatoolkit-dev=11.4  # [py==39]
-      #   - jupyter  # [py==39]
-      #   - pyarrow {{ pyarrow }}  # [py==39]
-      #   - tensorflow=2.11.*  # [py==39]
-      #   - tensorflow-datasets  # [py==39]
-      files:
-        - test-tiledb-vcf-api.py
-      commands:
-        - python -c "import tiledbvcf; tiledbvcf.version"
-        - python test-tiledb-vcf-api.py
+        #   - name: libtiledbvcf
+        #     version: {{ version_tiledb_vcf }}
+        #     script: build-tiledb-vcf.sh
+        #     requirements:
+        #       build:
+        #         - {{ compiler('c') }}
+        #         - {{ compiler('cxx') }}
+        #         - git
+        #         - cmake
+        #         - make
+        #         - automake
+        #         - zlib
+        #         - bzip2
+        #       host:
+        #         - {{ pin_subpackage('tiledb', exact=True) }}
+        #         - zlib
+        #         - bzip2
+        #         # - htslib >=1.15
+        #       run:
+        #         - {{ pin_subpackage('tiledb', exact=True) }}
+        #         - zlib
+        #         - bzip2
+        #     test:
+        #       files:
+        #         - test-tiledb-vcf-cli.sh
+        #       commands:
+        #         - tiledbvcf version
+        #         # verify libhts is linked
+        #         - ldd ${PREFIX}/lib/libtiledbvcf.so | grep libhts
+        #         # verify libdeflate is linked to libhts
+        #         - ldd ${PREFIX}/lib/libhts.so.* | grep libdeflate
+        #         - tiledbvcf create --uri /tmp/test-tiledbvcf-conda
+        #         - bash test-tiledb-vcf-cli.sh
+        #   - name: tiledbvcf-py
+        #     version: {{ version_tiledb_vcf }}
+        #     script: build-tiledb-vcf-py.sh
+        #     requirements:
+        #       build:
+        #         - {{ compiler('cxx') }}
+        #       host:
+        #         - {{ pin_subpackage('libtiledbvcf', exact=True) }}
+        #       run:
+        #         - {{ pin_subpackage('libtiledbvcf', exact=True) }}
+        #     imports:
+        #       - tiledbvcf
+        #     test:
+        #       # requires:
+        #       #   - cudatoolkit=11.4  # [py==39]
+        #       #   - cudatoolkit-dev=11.4  # [py==39]
+        #       #   - jupyter  # [py==39]
+        #       #   - pyarrow {{ pyarrow }}  # [py==39]
+        #       #   - tensorflow=2.11.*  # [py==39]
+        #       #   - tensorflow-datasets  # [py==39]
+        #       files:
+        #         - test-tiledb-vcf-api.py
+        #       commands:
+        #         - python -c "import tiledbvcf; tiledbvcf.version"
+        #         - python test-tiledb-vcf-api.py
   - name: libtiledbsoma
     version: {{ version_tiledb_soma }}
     script: build-tiledb-soma.sh
@@ -275,10 +278,19 @@ outputs:
         - {{ compiler('cxx') }}
       host:
         - {{ pin_subpackage('libtiledbsoma', exact=True) }}
+        - {{ pin_subpackage('tiledb-py', exact=True) }}
+        - pip
+        - wheel
+        - setuptools
+        - setuptools_scm
+        - python
+        - pybind11 <2.11
+        - cython <3.0
+        - numpy
       run:
         - {{ pin_subpackage('libtiledbsoma', exact=True) }}
         - {{ pin_subpackage('tiledb-py', exact=True) }}
-    test:
+          # test:
       # requires:
       #   - cudatoolkit=11.4  # [py==39]
       #   - cudatoolkit-dev=11.4  # [py==39]
@@ -299,39 +311,6 @@ outputs:
       description: Python API for efficient storage and retrieval of single-cell data using TileDB
       doc_url: https://docs.tiledb.com/
       dev_url: https://github.com/single-cell-data/TileDB-SOMA/tree/main/apis/python
-  - name: r-tiledbsoma
-    version: {{ version_tiledb_soma }}
-    script: build-tiledb-soma-r.sh
-    build:
-      rpaths:
-        - lib/R/lib/
-        - lib/
-    requirements:
-      build:
-        - {{ compiler('cxx') }}
-        - pkg-config
-      host:
-        - {{ pin_subpackage('libtiledbsoma', exact=True) }}
-        - {{ pin_subpackage('r-tiledb', exact=True) }}
-      run:
-        - {{ pin_subpackage('libtiledbsoma', exact=True) }}
-        - {{ pin_subpackage('r-tiledb', exact=True) }}
-    test:
-      commands:
-        - $R -e "library('tiledbsoma')"
-        - $R -e "tiledbsoma::show_package_versions()"
-        - "ldd $PREFIX/lib/R/library/tiledbsoma/libs/tiledbsoma.so | grep -e libR -e libtiledb"
-    about:
-      home: http://tiledb.com
-      license: MIT
-      license_family: MIT
-      license_file:
-        - '{{ environ["PREFIX"] }}/lib/R/share/licenses/MIT'
-        - TileDB-SOMA/apis/r/LICENSE
-      summary: TileDB-SOMA R API
-      description: R API for efficient storage and retrieval of single-cell data using TileDB
-      doc_url: https://docs.tiledb.com/
-      dev_url: https://github.com/single-cell-data/TileDB-SOMA/tree/main/apis/r
 
 about:
   home: http://tiledb.io

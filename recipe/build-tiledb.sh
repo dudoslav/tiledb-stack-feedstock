@@ -3,7 +3,7 @@ set -exo pipefail
 
 cd TileDB/
 
-# CURL_LIBS_APPEND=`$PREFIX/bin/curl-config --libs`
+CURL_LIBS_APPEND=`$PREFIX/bin/curl-config --libs`
 export LDFLAGS="${LDFLAGS} ${CURL_LIBS_APPEND}"
 export LDFLAGS="${LDFLAGS} -Wl,--no-as-needed -lrt"
 export TILEDB_GCS=ON
