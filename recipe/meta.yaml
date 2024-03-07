@@ -60,20 +60,6 @@ outputs:
         - {{ compiler('cxx') }}
       host:
         - libcurl
-          # test:
-          #   files:
-          #     - test-tiledb-linking.sh
-          #     - link_test_src/
-          #   requires:
-          #     - {{ compiler('cxx') }}
-          #     - cmake
-          #     - libarrow {{ libarrow }}
-          #     - make
-          #   commands:
-          #     - test -e $PREFIX/include/tiledb/tiledb.h
-          #     - test -e $PREFIX/include/tiledb/tiledb
-          #     - test -e $PREFIX/lib/libtiledb$SHLIB_EXT
-          #     - bash test-tiledb-linking.sh
     about:
       home: http://tiledb.io
       license: MIT
@@ -105,25 +91,6 @@ outputs:
         - pybind11 <2.11
         - cython <3.0
         - numpy
-      run:
-        - {{ pin_subpackage('tiledb', exact=True) }}
-        - python
-        - {{ pin_compatible('numpy') }}
-          # test:
-          #   requires:
-          #     - hypothesis
-          #     - pyarrow {{ pyarrow }}
-          #     - pytest
-          #     - pandas
-          #     - psutil
-          #   imports:
-          #     - tiledb
-          #   source_files:
-          #     - TileDB-Py/tiledb/tests/
-          #   commands:
-          #     - python -c "import tiledb; tiledb.libtiledb.version()"
-          #     - python -c "import tiledb; assert tiledb.VFS().supports('s3')"
-          #     - cd TileDB-Py && pytest -v --ignore-glob='*_examples.py' --ignore-glob='*_dask.py'
     about:
       home: http://tiledb.io
       license: MIT
@@ -159,19 +126,6 @@ outputs:
         - r-nanotime
         - r-spdl
         - r-rcppint64
-      run:
-        - {{ pin_subpackage('tiledb', exact=True) }}
-        - r-base
-        - r-nanotime
-        - r-spdl
-          # test:
-      # requires:
-      #   - r-tinytest
-      #   - r-nycflights13
-      #   - r-palmerpenguins
-      #   - r-data.table
-      # commands:
-      #   - Rscript -e 'tinytest::test_package("tiledb")'
     about:
       home: https://www.tiledb.com
       license: MIT
@@ -253,8 +207,6 @@ outputs:
         - make
       host:
         - {{ pin_subpackage('tiledb', exact=True) }}
-      run:
-        - {{ pin_subpackage('tiledb', exact=True) }}
     about:
       home: http://tiledb.com
       license: MIT
@@ -287,17 +239,6 @@ outputs:
         - pybind11 <2.11
         - cython <3.0
         - numpy
-      run:
-        - {{ pin_subpackage('libtiledbsoma', exact=True) }}
-        - {{ pin_subpackage('tiledb-py', exact=True) }}
-          # test:
-      # requires:
-      #   - cudatoolkit=11.4  # [py==39]
-      #   - cudatoolkit-dev=11.4  # [py==39]
-      #   - jupyter  # [py==39]
-      #   - pyarrow {{ pyarrow }}  # [py==39]
-      #   - tensorflow=2.11.*  # [py==39]
-      #   - tensorflow-datasets  # [py==39]
       imports:
         - tiledbsoma
       commands:

@@ -1,7 +1,7 @@
 About tiledb-stack-feedstock
 ============================
 
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/tiledb-stack-feedstock/blob/main/LICENSE.txt)
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/tiledb-stack-feedstock-static-feedstock/blob/main/LICENSE.txt)
 
 
 About tiledb-stack
@@ -90,21 +90,6 @@ support for fast reads and updates and reads. It features excellent compression,
 parallel I/O system with high scalability.
 
 
-About r-tiledbsoma
-------------------
-
-Home: http://tiledb.com
-
-Package license: MIT
-
-Summary: TileDB-SOMA R API
-
-Development: https://github.com/single-cell-data/TileDB-SOMA/tree/main/apis/r
-
-Documentation: https://docs.tiledb.com/
-
-R API for efficient storage and retrieval of single-cell data using TileDB
-
 About tiledbsoma-py
 -------------------
 
@@ -132,7 +117,7 @@ Current build status
       <details>
         <summary>
           <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=&branchName=main">
-            <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/tiledb-stack-feedstock?branchName=main">
+            <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/tiledb-stack-feedstock-static-feedstock?branchName=main">
           </a>
         </summary>
         <table>
@@ -141,7 +126,7 @@ Current build status
               <td>linux_64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/tiledb-stack-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/tiledb-stack-feedstock-static-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_" alt="variant">
                 </a>
               </td>
             </tr>
@@ -158,13 +143,10 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libtiledbsoma-green.svg)](https://anaconda.org/tiledb/libtiledbsoma) | [![Conda Downloads](https://img.shields.io/conda/dn/tiledb/libtiledbsoma.svg)](https://anaconda.org/tiledb/libtiledbsoma) | [![Conda Version](https://img.shields.io/conda/vn/tiledb/libtiledbsoma.svg)](https://anaconda.org/tiledb/libtiledbsoma) | [![Conda Platforms](https://img.shields.io/conda/pn/tiledb/libtiledbsoma.svg)](https://anaconda.org/tiledb/libtiledbsoma) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-libtiledbvcf-green.svg)](https://anaconda.org/tiledb/libtiledbvcf) | [![Conda Downloads](https://img.shields.io/conda/dn/tiledb/libtiledbvcf.svg)](https://anaconda.org/tiledb/libtiledbvcf) | [![Conda Version](https://img.shields.io/conda/vn/tiledb/libtiledbvcf.svg)](https://anaconda.org/tiledb/libtiledbvcf) | [![Conda Platforms](https://img.shields.io/conda/pn/tiledb/libtiledbvcf.svg)](https://anaconda.org/tiledb/libtiledbvcf) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-r--tiledb-green.svg)](https://anaconda.org/tiledb/r-tiledb) | [![Conda Downloads](https://img.shields.io/conda/dn/tiledb/r-tiledb.svg)](https://anaconda.org/tiledb/r-tiledb) | [![Conda Version](https://img.shields.io/conda/vn/tiledb/r-tiledb.svg)](https://anaconda.org/tiledb/r-tiledb) | [![Conda Platforms](https://img.shields.io/conda/pn/tiledb/r-tiledb.svg)](https://anaconda.org/tiledb/r-tiledb) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-r--tiledbsoma-green.svg)](https://anaconda.org/tiledb/r-tiledbsoma) | [![Conda Downloads](https://img.shields.io/conda/dn/tiledb/r-tiledbsoma.svg)](https://anaconda.org/tiledb/r-tiledbsoma) | [![Conda Version](https://img.shields.io/conda/vn/tiledb/r-tiledbsoma.svg)](https://anaconda.org/tiledb/r-tiledbsoma) | [![Conda Platforms](https://img.shields.io/conda/pn/tiledb/r-tiledbsoma.svg)](https://anaconda.org/tiledb/r-tiledbsoma) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-tiledb-green.svg)](https://anaconda.org/tiledb/tiledb) | [![Conda Downloads](https://img.shields.io/conda/dn/tiledb/tiledb.svg)](https://anaconda.org/tiledb/tiledb) | [![Conda Version](https://img.shields.io/conda/vn/tiledb/tiledb.svg)](https://anaconda.org/tiledb/tiledb) | [![Conda Platforms](https://img.shields.io/conda/pn/tiledb/tiledb.svg)](https://anaconda.org/tiledb/tiledb) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-tiledb--py-green.svg)](https://anaconda.org/tiledb/tiledb-py) | [![Conda Downloads](https://img.shields.io/conda/dn/tiledb/tiledb-py.svg)](https://anaconda.org/tiledb/tiledb-py) | [![Conda Version](https://img.shields.io/conda/vn/tiledb/tiledb-py.svg)](https://anaconda.org/tiledb/tiledb-py) | [![Conda Platforms](https://img.shields.io/conda/pn/tiledb/tiledb-py.svg)](https://anaconda.org/tiledb/tiledb-py) |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-tiledbsoma--py-green.svg)](https://anaconda.org/tiledb/tiledbsoma-py) | [![Conda Downloads](https://img.shields.io/conda/dn/tiledb/tiledbsoma-py.svg)](https://anaconda.org/tiledb/tiledbsoma-py) | [![Conda Version](https://img.shields.io/conda/vn/tiledb/tiledbsoma-py.svg)](https://anaconda.org/tiledb/tiledbsoma-py) | [![Conda Platforms](https://img.shields.io/conda/pn/tiledb/tiledbsoma-py.svg)](https://anaconda.org/tiledb/tiledbsoma-py) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-tiledbvcf--py-green.svg)](https://anaconda.org/tiledb/tiledbvcf-py) | [![Conda Downloads](https://img.shields.io/conda/dn/tiledb/tiledbvcf-py.svg)](https://anaconda.org/tiledb/tiledbvcf-py) | [![Conda Version](https://img.shields.io/conda/vn/tiledb/tiledbvcf-py.svg)](https://anaconda.org/tiledb/tiledbvcf-py) | [![Conda Platforms](https://img.shields.io/conda/pn/tiledb/tiledbvcf-py.svg)](https://anaconda.org/tiledb/tiledbvcf-py) |
 
 Installing tiledb-stack
 =======================
@@ -176,16 +158,16 @@ conda config --add channels tiledb/label/for-cloud
 conda config --set channel_priority strict
 ```
 
-Once the `tiledb/label/for-cloud` channel has been enabled, `libtiledbsoma, libtiledbvcf, r-tiledb, r-tiledbsoma, tiledb, tiledb-py, tiledbsoma-py, tiledbvcf-py` can be installed with `conda`:
+Once the `tiledb/label/for-cloud` channel has been enabled, `libtiledbsoma, r-tiledb, tiledb, tiledb-py, tiledbsoma-py` can be installed with `conda`:
 
 ```
-conda install libtiledbsoma libtiledbvcf r-tiledb r-tiledbsoma tiledb tiledb-py tiledbsoma-py tiledbvcf-py
+conda install libtiledbsoma r-tiledb tiledb tiledb-py tiledbsoma-py
 ```
 
 or with `mamba`:
 
 ```
-mamba install libtiledbsoma libtiledbvcf r-tiledb r-tiledbsoma tiledb tiledb-py tiledbsoma-py tiledbvcf-py
+mamba install libtiledbsoma r-tiledb tiledb tiledb-py tiledbsoma-py
 ```
 
 It is possible to list all of the versions of `libtiledbsoma` available on your platform with `conda`:

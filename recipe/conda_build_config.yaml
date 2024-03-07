@@ -15,20 +15,6 @@ python_impl:
   - cpython
 r_base:
   - 4.3
-libarrow:
-  - 14
-arrow_cpp:
-  - 14
-libarrow_all:
-  - 14
-pyarrow:
-  - 14
-r_arrow:
-  - 14
-pin_run_as_build:
-  pyarrow:
-    min_pin: x
-    max_pin: x
 c_compiler:
   - gcc
 c_compiler_version:
